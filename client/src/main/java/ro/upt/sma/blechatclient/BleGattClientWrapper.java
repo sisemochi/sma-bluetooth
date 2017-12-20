@@ -13,7 +13,6 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import java.nio.charset.Charset;
 import java.util.UUID;
-import ro.upt.sma.blechatclient.BleGattClientWrapper.MessageListener.ConnectionStatus;
 
 public class BleGattClientWrapper {
 
@@ -110,10 +109,12 @@ public class BleGattClientWrapper {
         super.onConnectionStateChange(gatt, status, newState);
 
         if (newState == STATE_CONNECTED) {
-          gatt.discoverServices();
-          messageListener.onConnectionStateChanged(ConnectionStatus.CONNECTED);
+          // TODO 1: once connection was established then trigger discover service
+
+          // TODO 2: inform message listener about CONNECTED status
+
         } else {
-          messageListener.onConnectionStateChanged(ConnectionStatus.DISCONNECTED);
+          // TODO 3: inform message listener about DISCONNECTED status
         }
       }
 
@@ -121,14 +122,14 @@ public class BleGattClientWrapper {
       public void onServicesDiscovered(BluetoothGatt gatt, int status) {
         super.onServicesDiscovered(gatt, status);
 
-        BluetoothGattCharacteristic characteristic = gatt.getService(CHAT_SERVICE)
-            .getCharacteristic(CHAT_ROOM_CHARACTERISTIC);
-
+        // TODO 4: get a handle for CHAT_ROOM_CHARACTERISTIC
+        BluetoothGattCharacteristic characteristic = null;
+        //
         gatt.setCharacteristicNotification(characteristic, true);
 
+
         BluetoothGattDescriptor descriptor = characteristic.getDescriptor(CLIENT_CONFIG);
-        descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-        gatt.writeDescriptor(descriptor);
+        // TODO 5: write descriptor for same characteristic to enable notifications
       }
 
       @Override
