@@ -100,7 +100,8 @@ class BleGattServerWrapper(private val context: Context) {
                 preparedWrite: Boolean,
                 responseNeeded: Boolean,
                 offset: Int,
-                value: ByteArray) {
+                value: ByteArray
+        ) {
             if (ChatProfile.CHAT_POST_CHARACTERISTIC == characteristic.uuid) {
                 notifyRegisteredDevices(value)
                 chatListener!!
@@ -139,8 +140,12 @@ class BleGattServerWrapper(private val context: Context) {
             }
         }
 
-        override fun onDescriptorReadRequest(device: BluetoothDevice, requestId: Int, offset: Int,
-                                             descriptor: BluetoothGattDescriptor) {
+        override fun onDescriptorReadRequest(
+                device: BluetoothDevice,
+                requestId: Int,
+                offset: Int,
+                descriptor: BluetoothGattDescriptor
+        ) {
             if (ChatProfile.CLIENT_CONFIG == descriptor.uuid) {
                 Log.d(TAG, "Config descriptor read")
                 val returnValue: ByteArray
@@ -163,10 +168,15 @@ class BleGattServerWrapper(private val context: Context) {
             }
         }
 
-        override fun onDescriptorWriteRequest(device: BluetoothDevice, requestId: Int,
-                                              descriptor: BluetoothGattDescriptor,
-                                              preparedWrite: Boolean, responseNeeded: Boolean,
-                                              offset: Int, value: ByteArray) {
+        override fun onDescriptorWriteRequest(
+                device: BluetoothDevice,
+                requestId: Int,
+                descriptor: BluetoothGattDescriptor,
+                preparedWrite: Boolean,
+                responseNeeded: Boolean,
+                offset: Int,
+                value: ByteArray
+        ) {
             if (ChatProfile.CLIENT_CONFIG == descriptor.uuid) {
                 if (Arrays.equals(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE, value)) {
                     Log.d(TAG, "Subscribe device to notifications: $device")
@@ -344,7 +354,7 @@ class BleGattServerWrapper(private val context: Context) {
 
     companion object {
 
-        private val TAG = BleGattServerWrapper::class.java!!.getSimpleName()
+        private val TAG = BleGattServerWrapper::class.java.simpleName
     }
 
 }
