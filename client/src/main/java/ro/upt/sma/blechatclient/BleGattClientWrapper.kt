@@ -51,7 +51,7 @@ class BleGattClientWrapper(private val context: Context) {
         val characteristic = gatt!!.getService(CHAT_SERVICE)
                 .getCharacteristic(CHAT_POST_CHARACTERISTIC)
 
-        characteristic.setValue(message.toByteArray(Charset.defaultCharset()))
+        characteristic.value = message.toByteArray(Charset.defaultCharset())
 
         val success = gatt!!.writeCharacteristic(characteristic)
 
@@ -81,26 +81,26 @@ class BleGattClientWrapper(private val context: Context) {
                 super.onConnectionStateChange(gatt, status, newState)
 
                 if (newState == STATE_CONNECTED) {
-                    // TODO 1: Once connection was established then trigger discover service
+                    // TODO 1: Once connection was established then trigger service discovery.
 
-                    // TODO 2: Inform the message listener about CONNECTED value status
+                    // TODO 2: Inform the message listener about CONNECTED value status.
 
                 } else {
-                    // TODO 3: inform message listener about DISCONNECTED status
+                    // TODO 3: inform the message listener about DISCONNECTED value status.
                 }
             }
 
             override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
                 super.onServicesDiscovered(gatt, status)
 
-                // TODO 4: get a handle for CHAT_ROOM_CHARACTERISTIC
+                // TODO 4: Acquire a handle for the CHAT_ROOM_CHARACTERISTIC.
                 val characteristic: BluetoothGattCharacteristic? = null
                 //
                 gatt.setCharacteristicNotification(characteristic, true)
 
 
                 val descriptor = characteristic!!.getDescriptor(CLIENT_CONFIG)
-                // TODO 5: write descriptor for same characteristic to enable notifications
+                // TODO 5: Write descriptor for the same characteristic in order to enable notifications.
             }
 
             override fun onCharacteristicChanged(
@@ -122,7 +122,7 @@ class BleGattClientWrapper(private val context: Context) {
 
     companion object {
 
-        private val TAG = BleGattClientWrapper::class.java!!.getSimpleName()
+        private val TAG = BleGattClientWrapper::class.java.simpleName
 
         val CHAT_SERVICE: UUID = UUID.fromString("00001805-0000-1000-8000-00805f9b34fb")
         val CHAT_ROOM_CHARACTERISTIC: UUID = UUID.fromString("0000000a-0000-1000-8000-00805f9b34fb")
