@@ -2,6 +2,8 @@ package ro.upt.sma.blechatclient
 
 import android.bluetooth.*
 import android.bluetooth.BluetoothAdapter.STATE_CONNECTED
+import android.bluetooth.le.ScanCallback
+import android.bluetooth.le.ScanResult
 import android.content.Context
 import android.content.Context.BLUETOOTH_SERVICE
 import java.nio.charset.Charset
@@ -86,7 +88,9 @@ class BleGattClientWrapper(private val context: Context) {
                     // TODO 2: Inform the message listener about CONNECTED value status.
 
                 } else {
+                    gatt.close()
                     // TODO 3: inform the message listener about DISCONNECTED value status.
+
                 }
             }
 
@@ -99,8 +103,10 @@ class BleGattClientWrapper(private val context: Context) {
                 gatt.setCharacteristicNotification(characteristic, true)
 
 
-                val descriptor = characteristic!!.getDescriptor(CLIENT_CONFIG)
-                // TODO 5: Write descriptor for the same characteristic in order to enable notifications.
+                // TODO 5: Get the CLIENT_CONFIG descriptor for the same characteristic.
+
+                //TODO 6: Write descriptor to GATT handle.
+
             }
 
             override fun onCharacteristicChanged(
@@ -111,7 +117,7 @@ class BleGattClientWrapper(private val context: Context) {
                 messageListener.onMessageAdded(
                         String(characteristic.value, Charset.defaultCharset()))
             }
-        })
+        },  BluetoothDevice.TRANSPORT_LE)
     }
 
     fun unregisterListener() {
