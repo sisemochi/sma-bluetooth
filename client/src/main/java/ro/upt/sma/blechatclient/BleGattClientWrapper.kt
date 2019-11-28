@@ -103,7 +103,7 @@ class BleGattClientWrapper(private val context: Context) {
                 gatt.setCharacteristicNotification(characteristic, true)
 
 
-                // TODO 5: Get the CLIENT_CONFIG descriptor for the same characteristic.
+                // TODO 5: Get and enable the CLIENT_CONFIG descriptor for the same characteristic.
 
                 //TODO 6: Write descriptor to GATT handle.
 
