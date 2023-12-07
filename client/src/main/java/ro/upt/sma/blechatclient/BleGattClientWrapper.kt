@@ -105,7 +105,7 @@ class BleGattClientWrapper(private val context: Context) {
 
                 // TODO 5: Get and enable the CLIENT_CONFIG descriptor for the same characteristic.
 
-                //TODO 6: Write descriptor to GATT handle.
+                // TODO 6: Write descriptor to GATT handle.
 
             }
 
