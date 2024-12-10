@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId "ro.upt.sma.blechatclient"
         minSdkVersion 23
-        targetSdkVersion 28
+        targetSdkVersion 30
 
         versionCode 1
         versionName "1.0"
